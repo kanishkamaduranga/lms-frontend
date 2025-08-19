@@ -1,26 +1,20 @@
 // src/components/DashboardLayout.js
-import * as React from 'react';
+import React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button'; 
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import { 
+  Box, Drawer, CssBaseline, AppBar as MuiAppBar,
+  Toolbar, List, Typography, Divider, IconButton,
+  Button, ListItem, ListItemButton, ListItemIcon, 
+  ListItemText, CircularProgress
+} from '@mui/material';
+import {
+  Menu as MenuIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon
+} from '@mui/icons-material';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import MenuItemIcon from './MenuIcon';
 
 const drawerWidth = 240;
 
@@ -64,7 +58,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
@@ -72,7 +65,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function DashboardLayout({ children }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const { logout } = useAuth();
+  const { menuItems, logout, loading } = useAuth();
+  const location = useLocation();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,6 +75,14 @@ export default function DashboardLayout({ children }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -128,26 +130,23 @@ export default function DashboardLayout({ children }) {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Dashboard', 'Courses', 'Users', 'Categories'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+          {menuItems.map((item) => (
+            <ListItem 
+              key={item.path} 
+              disablePadding
+              sx={{
+                backgroundColor: location.pathname === item.path ? 
+                  theme.palette.action.selected : 'inherit'
+              }}
+            >
+              <ListItemButton 
+                component={Link} 
+                to={item.path}
+              >
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  <MenuItemIcon iconName={item.icon} />
                 </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['Settings', 'Profile'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={item.title} />
               </ListItemButton>
             </ListItem>
           ))}

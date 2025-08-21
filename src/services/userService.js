@@ -71,4 +71,14 @@ export const userService = {
     });
     return response.json();
   },
+
+  // Get users by role
+  getByRole: async (role, token) => {
+    const response = await fetch(getApiUrl(`/api/users/role/${role}`), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.json();
+  },
 };

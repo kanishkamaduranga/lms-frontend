@@ -18,7 +18,8 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  TextField
+  TextField,
+  TablePagination
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -40,22 +41,39 @@ export default function CategoryList() {
   const [reorderDialog, setReorderDialog] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [newPosition, setNewPosition] = useState('');
+  
+  // Pagination state
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [totalCategories, setTotalCategories] = useState(0);
+  const [paginationInfo, setPaginationInfo] = useState({});
 
   useEffect(() => {
     loadCategories();
-  }, []);
+  }, [page, rowsPerPage]); // Reload when page or rowsPerPage changes
 
   const loadCategories = async () => {
     try {
       setLoading(true);
-      const data = await categoryService.getAll(token);
+      const data = await categoryService.getAll(token, page + 1, rowsPerPage);
       setCategories(data.categories || []);
+      setTotalCategories(data.pagination?.totalItems || 0);
+      setPaginationInfo(data.pagination || {});
     } catch (err) {
       setError('Failed to load categories');
       console.error('Error loading categories:', err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page when changing rows per page
   };
 
   const handleCreate = () => {
@@ -95,7 +113,7 @@ export default function CategoryList() {
     }
   };
 
-  if (loading) {
+  if (loading && categories.length === 0) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
         <CircularProgress />
@@ -165,6 +183,17 @@ export default function CategoryList() {
             ))}
           </TableBody>
         </Table>
+        
+        {/* Pagination component */}
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          component="div"
+          count={totalCategories}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
 
       <CategoryForm

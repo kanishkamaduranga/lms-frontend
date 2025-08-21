@@ -2,9 +2,9 @@
 import { getApiUrl } from '../utils/api';
 
 export const userService = {
-  // Get all users
-  getAll: async (token) => {
-    const response = await fetch(getApiUrl('/api/users'), {
+  // Get all users with pagination
+  getAll: async (token, page = 1, limit = 10) => {
+    const response = await fetch(getApiUrl(`/api/users?page=${page}&limit=${limit}`), {
       headers: {
         Authorization: `Bearer ${token}`,
       },

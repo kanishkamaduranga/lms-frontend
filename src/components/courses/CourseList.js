@@ -17,7 +17,8 @@ import {
   Alert,
   Chip,
   Tooltip,
-  Avatar
+  Avatar,
+  TablePagination
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -43,24 +44,32 @@ export default function CourseList() {
   const [error, setError] = useState('');
   const [openForm, setOpenForm] = useState(false);
   const [editingCourse, setEditingCourse] = useState(null);
+  
+  // Pagination state
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [totalCourses, setTotalCourses] = useState(0);
+  const [paginationInfo, setPaginationInfo] = useState({});
 
   useEffect(() => {
     loadCourses();
     loadInstructors();
-  }, []);
+  }, [page, rowsPerPage]); // Reload when page or rowsPerPage changes
 
   const loadCourses = useCallback(async () => {
     try {
       setLoading(true);
-      const data = await courseService.getAllCourses(token);
+      const data = await courseService.getAllCourses(token, page + 1, rowsPerPage);
       setCourses(data.courses || []);
+      setTotalCourses(data.pagination?.totalItems || 0);
+      setPaginationInfo(data.pagination || {});
     } catch (err) {
       setError('Failed to load courses');
       console.error('Error loading courses:', err);
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, page, rowsPerPage]);
 
   const loadInstructors = useCallback(async () => {
     try {
@@ -70,6 +79,15 @@ export default function CourseList() {
       console.error('Error loading instructors:', err);
     }
   }, [token]);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page when changing rows per page
+  };
 
   const handleCreate = () => {
     setEditingCourse(null);
@@ -125,7 +143,7 @@ export default function CourseList() {
     return instructor ? instructor.full_name : 'Not assigned';
   };
 
-  if (loading) {
+  if (loading && courses.length === 0) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
         <CircularProgress />
@@ -198,22 +216,22 @@ export default function CourseList() {
                     </Typography>
                   </Box>
                 </TableCell>
-                                 <TableCell>
-                   {getStatusChip(course)}
-                 </TableCell>
-                 <TableCell>
-                   <Typography variant="body2" color="textSecondary">
-                     {getInstructorName(course.instructor_id)}
-                   </Typography>
-                 </TableCell>
-                 <TableCell>
-                   <Box display="flex" alignItems="center" gap={0.5}>
-                     <CalendarIcon fontSize="small" color="action" />
-                     <Typography variant="body2">
-                       {formatDate(course.start_date)}
-                     </Typography>
-                   </Box>
-                 </TableCell>
+                <TableCell>
+                  {getStatusChip(course)}
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2" color="textSecondary">
+                    {getInstructorName(course.instructor_id)}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Box display="flex" alignItems="center" gap={0.5}>
+                    <CalendarIcon fontSize="small" color="action" />
+                    <Typography variant="body2">
+                      {formatDate(course.start_date)}
+                    </Typography>
+                  </Box>
+                </TableCell>
                 <TableCell>
                   <Box display="flex" alignItems="center" gap={0.5}>
                     <CalendarIcon fontSize="small" color="action" />
@@ -283,9 +301,9 @@ export default function CourseList() {
                 </TableCell>
               </TableRow>
             ))}
-                         {courses.length === 0 && (
-               <TableRow>
-                 <TableCell colSpan={9} align="center">
+            {courses.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={9} align="center">
                   <Box py={4}>
                     <SchoolIcon sx={{ fontSize: 48, color: 'text.secondary', mb: 2 }} />
                     <Typography variant="body2" color="textSecondary">
@@ -297,6 +315,17 @@ export default function CourseList() {
             )}
           </TableBody>
         </Table>
+        
+        {/* Pagination component */}
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          component="div"
+          count={totalCourses}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
 
       <CourseForm

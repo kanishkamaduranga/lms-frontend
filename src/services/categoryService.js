@@ -2,9 +2,9 @@
 import { getApiUrl } from '../utils/api';
 
 export const categoryService = {
-  // Get all categories
-  getAll: async (token) => {
-    const response = await fetch(getApiUrl('/api/categories'), {
+  // Get all categories with pagination
+  getAll: async (token, page = 1, limit = 10) => {
+    const response = await fetch(getApiUrl(`/api/categories?page=${page}&limit=${limit}`), {
       headers: {
         Authorization: `Bearer ${token}`,
       },

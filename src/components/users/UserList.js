@@ -16,7 +16,8 @@ import {
   Alert,
   Chip,
   Avatar,
-  Tooltip
+  Tooltip,
+  TablePagination
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -38,22 +39,39 @@ export default function UserList({ onUserSelect, onUserView }) {
   const [error, setError] = useState('');
   const [openForm, setOpenForm] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  
+  // Pagination state
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [paginationInfo, setPaginationInfo] = useState({});
 
   useEffect(() => {
     loadUsers();
-  }, []);
+  }, [page, rowsPerPage]); // Reload when page or rowsPerPage changes
 
   const loadUsers = async () => {
     try {
       setLoading(true);
-      const data = await userService.getAll(token);
+      const data = await userService.getAll(token, page + 1, rowsPerPage);
       setUsers(data.users || []);
+      setTotalUsers(data.pagination?.totalItems || 0);
+      setPaginationInfo(data.pagination || {});
     } catch (err) {
       setError('Failed to load users');
       console.error('Error loading users:', err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0); // Reset to first page when changing rows per page
   };
 
   const handleCreate = () => {
@@ -121,7 +139,7 @@ export default function UserList({ onUserSelect, onUserView }) {
     );
   };
 
-  if (loading) {
+  if (loading && users.length === 0) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
         <CircularProgress />
@@ -259,6 +277,17 @@ export default function UserList({ onUserSelect, onUserView }) {
             ))}
           </TableBody>
         </Table>
+        
+        {/* Pagination component */}
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          component="div"
+          count={totalUsers}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
 
       <UserForm

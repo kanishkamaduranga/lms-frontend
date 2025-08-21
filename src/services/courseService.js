@@ -88,8 +88,8 @@ export const courseService = {
 
   // Course Management
   // Get all courses
-  getAllCourses: async (token) => {
-    const response = await fetch(getApiUrl('/api/courses'), {
+  getAllCourses: async (token, page = 1, limit = 10) => {
+    const response = await fetch(getApiUrl(`/api/courses?page=${page}&limit=${limit}`), {
       headers: {
         Authorization: `Bearer ${token}`,
       },

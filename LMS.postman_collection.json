@@ -1,0 +1,719 @@
+{
+	"info": {
+		"_postman_id": "52cde1ea-8f11-4185-8b09-6a0745de5a23",
+		"name": "LMS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1191797",
+		"_collection_link": "https://restless-moon-2015-1.postman.co/workspace/LMS~35e32386-8dfa-4ef3-9545-181b6e09b883/collection/1191797-52cde1ea-8f11-4185-8b09-6a0745de5a23?action=share&source=collection_link&creator=1191797"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"full_name\" : \"Kanishka Maduranga\",\n    \"username\" : \"kanishka3\",\n    \"email\" : \"kanishka10030@gmail.com\",\n    \"password\" : \"123\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "## Get Users API\n\nThis endpoint retrieves a list of users from the system.\n\n### Request\n\n- **Method**: `GET`\n    \n- **Endpoint**: `http://localhost:5000/api/users`\n    \n\n### Response\n\n- **Status Code**: `200 OK`\n    \n- **Content-Type**: `application/json`\n    \n- **Response Body**: The response will contain a JSON object with a key `users`, which is an array of user objects. Each user object includes the following fields:\n    \n    - `id`: Unique identifier for the user.\n        \n    - `full_name`: The full name of the user.\n        \n    - `email`: The email address of the user.\n        \n    - `password`: The password of the user (typically not returned for security reasons).\n        \n    - `created_at`: Timestamp of when the user was created.\n        \n    - `updated_at`: Timestamp of the last update to the user.\n        \n    - `username`: The username of the user.\n        \n    - `role`: The role assigned to the user.\n        \n    - `enrollment_status`: The enrollment status of the user.\n        \n    - `suspension_date`: Date when the user was suspended, if applicable.\n        \n    - `reactivation_date`: Date when the user was reactivated, if applicable.\n        \n    - `last_login_date`: Timestamp of the user's last login.\n        \n    - `department_group`: The department group the user belongs to.\n        \n    - `profile_picture`: URL or path to the user's profile picture.\n        \n\n### Example Response\n\n``` json\n{\n  \"users\": [\n    {\n      \"id\": 0,\n      \"full_name\": \"\",\n      \"email\": \"\",\n      \"password\": \"\",\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"username\": \"\",\n      \"role\": \"\",\n      \"enrollment_status\": \"\",\n      \"suspension_date\": null,\n      \"reactivation_date\": null,\n      \"last_login_date\": null,\n      \"department_group\": null,\n      \"profile_picture\": null\n    }\n  ]\n}\n\n ```\n\n### Notes\n\n- The request does not require any parameters in the URL or body.\n    \n- The response will include an array of users, which may be empty if no users are found."
+					},
+					"response": []
+				},
+				{
+					"name": "users Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"full_name\" : \"Kanishka Maduranga\",\n    \"username\" : \"kanishka12\",\n    \"email\" : \"kanishka1012@gmail.com\",\n    \"password\" : \"123\",\n    \"role\" : \"Instructor\",\n    \"department_group\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						},
+						"description": "## Get Users API\n\nThis endpoint retrieves a list of users from the system.\n\n### Request\n\n- **Method**: `GET`\n    \n- **Endpoint**: `http://localhost:5000/api/users`\n    \n\n### Response\n\n- **Status Code**: `200 OK`\n    \n- **Content-Type**: `application/json`\n    \n- **Response Body**: The response will contain a JSON object with a key `users`, which is an array of user objects. Each user object includes the following fields:\n    \n    - `id`: Unique identifier for the user.\n        \n    - `full_name`: The full name of the user.\n        \n    - `email`: The email address of the user.\n        \n    - `password`: The password of the user (typically not returned for security reasons).\n        \n    - `created_at`: Timestamp of when the user was created.\n        \n    - `updated_at`: Timestamp of the last update to the user.\n        \n    - `username`: The username of the user.\n        \n    - `role`: The role assigned to the user.\n        \n    - `enrollment_status`: The enrollment status of the user.\n        \n    - `suspension_date`: Date when the user was suspended, if applicable.\n        \n    - `reactivation_date`: Date when the user was reactivated, if applicable.\n        \n    - `last_login_date`: Timestamp of the user's last login.\n        \n    - `department_group`: The department group the user belongs to.\n        \n    - `profile_picture`: URL or path to the user's profile picture.\n        \n\n### Example Response\n\n``` json\n{\n  \"users\": [\n    {\n      \"id\": 0,\n      \"full_name\": \"\",\n      \"email\": \"\",\n      \"password\": \"\",\n      \"created_at\": \"\",\n      \"updated_at\": \"\",\n      \"username\": \"\",\n      \"role\": \"\",\n      \"enrollment_status\": \"\",\n      \"suspension_date\": null,\n      \"reactivation_date\": null,\n      \"last_login_date\": null,\n      \"department_group\": null,\n      \"profile_picture\": null\n    }\n  ]\n}\n\n ```\n\n### Notes\n\n- The request does not require any parameters in the URL or body.\n    \n- The response will include an array of users, which may be empty if no users are found."
+					},
+					"response": []
+				},
+				{
+					"name": "user Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/users/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						},
+						"description": "## Get User Details\n\nThis endpoint retrieves detailed information about a specific user identified by their unique ID.\n\n### Request\n\n- **Method:** GET\n    \n- **Endpoint:** `{{url}}/api/users/{id}`\n    \n- **Path Parameter:**\n    \n    - `id` (integer): The unique identifier of the user you wish to retrieve. In this case, the ID is `2`.\n        \n\n### Response\n\n- **Status Code:** 200 OK\n    \n- **Content-Type:** application/json\n    \n\nThe response will contain a JSON object with the following structure:\n\n``` json\n{\n  \"user\": {\n    \"id\": 0,\n    \"full_name\": \"\",\n    \"email\": \"\",\n    \"password\": \"\",\n    \"created_at\": \"\",\n    \"updated_at\": \"\",\n    \"username\": \"\",\n    \"role\": \"\",\n    \"enrollment_status\": \"\",\n    \"suspension_date\": null,\n    \"reactivation_date\": null,\n    \"last_login_date\": null,\n    \"department_group\": null,\n    \"profile_picture\": null\n  }\n}\n\n ```\n\n### Response Fields\n\n- `user`: An object containing the user's details.\n    \n    - `id`: The unique identifier for the user.\n        \n    - `full_name`: The full name of the user.\n        \n    - `email`: The email address of the user.\n        \n    - `password`: The user's password (note: this may not be returned for security reasons).\n        \n    - `created_at`: Timestamp of when the user was created.\n        \n    - `updated_at`: Timestamp of the last update to the user’s information.\n        \n    - `username`: The username of the user.\n        \n    - `role`: The role assigned to the user.\n        \n    - `enrollment_status`: The enrollment status of the user.\n        \n    - `suspension_date`: Date when the user was suspended, if applicable.\n        \n    - `reactivation_date`: Date when the user was reactivated, if applicable.\n        \n    - `last_login_date`: Timestamp of the user's last login.\n        \n    - `department_group`: The department group the user belongs to.\n        \n    - `profile_picture`: URL or path to the user's profile picture.\n        \n\n### Notes\n\n- Ensure that the user ID provided in the request exists in the system to receive a valid response.\n    \n- The returned password field may be omitted or masked for security reasons."
+					},
+					"response": []
+				},
+				{
+					"name": "user Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"full_name\" : \"Kanishka Maduranga\",\n    \"username\" : \"kanishka444u\",\n    \"email\" : \"kanishka1044u@gmail.com\",\n    \"password\" : \"123\",\n    {{url}}/api/users/4,\n    \"department_group\" : \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"4"
+							]
+						},
+						"description": "### Update User Information\n\nThis endpoint allows you to update the details of a specific user by their unique identifier. In this case, the user with ID `4` is being updated with new information.\n\n#### Request Parameters\n\nThe request payload must be sent in JSON format and includes the following fields:\n\n- **full_name** (string): The full name of the user.\n    \n- **username** (string): The username associated with the user account.\n    \n- **email** (string): The email address of the user.\n    \n- **password** (string): The password for the user account.\n    \n- **role** (string): The role assigned to the user (e.g., Admin).\n    \n- **department_group** (string): The department group the user belongs to (can be empty).\n    \n\n#### Example Request Body\n\n``` json\n{\n  \"full_name\": \"Kanishka Maduranga\",\n  \"username\": \"kanishka444u\",\n  \"email\": \"kanishka1044u@gmail.com\",\n  \"password\": \"123\",\n  \"role\": \"Admin\",\n  \"department_group\": \"\"\n}\n\n ```\n\n#### Expected Response\n\nUpon a successful update, the server responds with a `200 OK` status and returns the updated user object in JSON format. The response includes the following fields:\n\n- **user**: An object containing the details of the updated user, including:\n    \n    - **id**: The unique identifier of the user.\n        \n    - **full_name**: The updated full name of the user.\n        \n    - **email**: The updated email address of the user.\n        \n    - **username**: The updated username of the user.\n        \n    - **role**: The updated role of the user.\n        \n    - **enrollment_status**: The current enrollment status of the user.\n        \n    - **suspension_date**: The date of suspension, if applicable.\n        \n    - **reactivation_date**: The date of reactivation, if applicable.\n        \n    - **last_login_date**: The last login date of the user.\n        \n    - **department_group**: The updated department group of the user.\n        \n    - **profile_picture**: The URL of the user's profile picture, if available.\n        \n\n#### Notes\n\n- Ensure that all required fields are included in the request body.\n    \n- The password should be securely handled and not exposed in logs or responses.\n    \n- The `department_group` can be left empty if not applicable."
+					},
+					"response": []
+				},
+				{
+					"name": "user Patch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"enrollment_status\" : 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/4/suspend",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"4",
+								"suspend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/users/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"5"
+							]
+						},
+						"description": "### DELETE User Endpoint\n\nThis endpoint is used to delete a user from the system based on their unique identifier.\n\n#### Request\n\n- **Method**: DELETE\n    \n- **URL**: `{{url}}/api/users/{userId}`\n    \n- **Path Parameter**:\n    \n    - `userId` (required): The unique identifier of the user to be deleted.\n        \n\n#### Response\n\n- **Status Code**: `204 No Content`\n    \n    - Indicates that the request was successful and the user has been deleted. No content is returned in the response body.\n        \n- **Content-Type**: `text/xml`\n    \n    - The response does not contain any body content.\n        \n\nThis endpoint does not require a request body, as the user to be deleted is specified via the path parameter. Upon successful deletion, the server will respond with a `204 No Content` status, confirming that the operation was completed successfully."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "List all categories (Auth required)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"MSC\", \n    \"parent_id\":1, \n    \"positio\":0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create category (Admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"BSc\", \n    \"parent_id\": 1, \n    \"position\": 1 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename category (Admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"BSc edit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/categories/3/rename",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"3",
+								"rename"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reorder category (Admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"position\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/categories/3/reorder",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"3",
+								"reorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete category (Admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/categories/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "List all courses (Auth required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Course name 4\", \n    \"description\": \"Course description 4\", \n    \"duration_minutes\": 30, \n    \"start_date\": \"2025-07-30\", \n    \"end_date\": \"2025-09-30\", \n    \"tags\": [\"course tag\", \"tag2\", \"tag3\"], \n    \"instructor_id\": 12, \n    \"category_ids\": 2 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/courses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add content (Admin/Instructor)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content_type\": \"video\", \n    \"content_text\": \"content_text content_text content_text content_text content_text\", \n    \"file_url\": \"https://www.youtube.com/watch?v=aCIySXNT8b0\", \n    \"metadata\": {}, \n    \"position\": 1 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/courses/2/contents",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"2",
+								"contents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update course (Admin/Instructor)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Course name 2\", \n    \"description\": \"Course description 2\", \n    \"duration_minutes\": 40, \n    \"start_date\": \"2025-07-30\", \n    \"end_date\": \"2025-09-30\", \n    \"tags\": [\"course tag\", \"tag2\", \"tag3\"], \n    \"instructor_id\": 12, \n    \"category_ids\": 2 \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/courses/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List all courses (Auth required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/courses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get course with categories & contents (Auth required)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/courses/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete course (Admin/Instructor)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/courses/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"courses",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"full_name\" : \"Kanishka Maduranga\",\n    \"username\" : \"kanishka11\",\n    \"email\" : \"kanishka1011@gmail.com\",\n    \"password\" : \"123\",\n    \"role\" : \"Admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/register",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				},
+				"description": "## Endpoint: Register User\n\nThis endpoint is used to register a new user in the system. It accepts user details and creates a new user account, returning the user's information upon successful registration.\n\n### Request\n\n**Method:** POST  \n**URL:** `http://localhost:5000/api/auth/register`\n\n**Request Body:**  \nThe request body must be in JSON format and should contain the following parameters:\n\n- `full_name` (string): The full name of the user.\n    \n- `username` (string): The desired username for the account.\n    \n- `email` (string): The email address of the user.\n    \n- `password` (string): The password for the account.\n    \n- `role` (string): The role assigned to the user (e.g., 'Admin', 'Instructor', 'Student', 'Guest' and default is 'Student' ).\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"full_name\": \"John Doe\",\n  \"username\": \"johndoe\",\n  \"email\": \"johndoe@example.com\",\n  \"password\": \"securepassword\",\n  \"role\": \"User\"\n}\n\n ```\n\n### Response\n\n**Status Code:** 201 Created  \n**Content-Type:** application/json\n\n**Response Body:**  \nOn successful registration, the response will contain the user's information structured as follows:\n\n- `user`: An object containing the details of the registered user:\n    \n    - `id` (integer): The unique identifier for the user.\n        \n    - `full_name` (string): The full name of the user.\n        \n    - `username` (string): The username of the user.\n        \n    - `email` (string): The email address of the user.\n        \n    - `role` (string): The role assigned to the user.\n        \n\n**Example Response Body:**\n\n``` json\n{\n  \"user\": {\n    \"id\": 1,\n    \"full_name\": \"John Doe\",\n    \"username\": \"johndoe\",\n    \"email\": \"johndoe@example.com\",\n    \"role\": \"User\"\n  }\n}\n\n ```\n\n### Summary\n\nThis endpoint is essential for user account creation, allowing users to provide their details and receive a confirmation of their registration along with their assigned user information."
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"pm.environment.set(\"token\", jsonData.token || jsonData.access_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"identifier\" : \"kanishka6\",\n    \"password\" : \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				},
+				"description": "## Login API\n\nThis endpoint is used to authenticate a user and obtain an access token.\n\n### Request\n\n- **Method:** `POST`\n    \n- **Endpoint:** `http://localhost:5000/api/auth/login`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- **identifier** (string): The unique identifier for the user (e.g., username or email).\n    \n- **password** (string): The password associated with the user account.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"identifier\": \"your_identifier\",\n  \"password\": \"your_password\"\n}\n\n ```\n\n### Response\n\n- **Status Code:** `200 OK`\n    \n- **Content-Type:** `application/json`\n    \n\n#### Response Body\n\nOn successful authentication, the response will contain a JSON object with the following parameter:\n\n- **token** (string): The access token that can be used for subsequent requests.\n    \n\n**Example Response:**\n\n``` json\n{\n  \"token\": \"your_access_token\"\n}\n\n ```\n\nMake sure to handle the token securely and include it in the Authorization header for protected routes."
+			},
+			"response": []
+		}
+	]
+}

@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import DashboardLayout from './components/DashboardLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import CategoryList from './components/categories/CategoryList';
+import { UsersPage, UserView } from './components/users';
+import { CourseManagement, CourseView } from './components/courses';
 
 function App() {
   return (
@@ -29,6 +31,39 @@ function App() {
               </ProtectedRoute>
             } 
           />
+          <Route path="/admin/users" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <UsersPage />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/admin/users/:userId" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <UserView />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/courses" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <CourseManagement />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } 
+          />
+          <Route path="/courses/:courseId" element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <CourseView />
+                </DashboardLayout>
+              </ProtectedRoute>
+            } 
+          />
+
           <Route path="/" element={<Login />} />
         </Routes>
       </AuthProvider>

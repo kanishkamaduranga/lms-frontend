@@ -145,7 +145,7 @@ export default function CategoryList() {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
-              <TableCell>Parent ID</TableCell>
+              <TableCell>Parent Category</TableCell>
               <TableCell>Position</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
@@ -154,7 +154,7 @@ export default function CategoryList() {
             {categories.map((category) => (
               <TableRow key={category.id}>
                 <TableCell>{category.name}</TableCell>
-                <TableCell>{category.parent_id || 'None'}</TableCell>
+                <TableCell>{category.parent_name || 'None'}</TableCell>
                 <TableCell>{category.position}</TableCell>
                 <TableCell>
                   <IconButton
